@@ -1,0 +1,149 @@
+[gd_scene load_steps=10 format=3 uid="uid://ffwtawe0rhl8"]
+
+[ext_resource type="Texture2D" uid="uid://bf1pw2v7r6fmp" path="res://assets/UI/blue_arrow.png" id="1_0671t"]
+[ext_resource type="Script" uid="uid://c4w3sg2vsxi73" path="res://scripts/UI/rulette.gd" id="1_l1wnk"]
+[ext_resource type="Texture2D" uid="uid://kax85wfmdtwy" path="res://assets/UI/pink_arrow.png" id="2_l1wnk"]
+[ext_resource type="AudioStream" uid="uid://b42srx5f2ct63" path="res://assets/Sounds/rulette.wav" id="4_2ela4"]
+[ext_resource type="AudioStream" uid="uid://mneo5mca76v1" path="res://assets/Sounds/rulette2.wav" id="5_6ce7g"]
+
+[sub_resource type="Animation" id="Animation_6ce7g"]
+resource_name = "fade_in"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Blue:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Pink:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_dysij"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Blue:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Pink:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_32r2u"]
+resource_name = "fade_out"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Blue:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Pink:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_32r2u"]
+_data = {
+&"RESET": SubResource("Animation_dysij"),
+&"fade_in": SubResource("Animation_6ce7g"),
+&"fade_out": SubResource("Animation_32r2u")
+}
+
+[node name="Rulette" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_l1wnk")
+
+[node name="Blue" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.9358364
+anchor_top = 0.25975597
+anchor_right = 0.9831698
+anchor_bottom = 0.438756
+offset_top = 121.67996
+offset_right = 61.801025
+offset_bottom = 71.08902
+rotation = -1.6656761
+texture = ExtResource("1_0671t")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Pink" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.9352863
+anchor_top = 0.50895345
+anchor_right = 0.97628087
+anchor_bottom = 0.6963013
+offset_left = 53.633667
+offset_top = -0.7999878
+offset_right = 122.73706
+offset_bottom = -56.800354
+rotation = 1.4722106
+texture = ExtResource("2_l1wnk")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Sound1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_2ela4")
+volume_db = -12.316
+
+[node name="Sound2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_6ce7g")
+
+[node name="Fade" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_32r2u")
+}

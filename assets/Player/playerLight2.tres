@@ -1,0 +1,10 @@
+[gd_resource type="BoxMesh" load_steps=2 format=3 uid="uid://dbt3oa0jpum2k"]
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_u8k5t"]
+albedo_color = Color(0.16879752, 0.025558187, 0.22814953, 1)
+emission_enabled = true
+emission = Color(0.43197423, 0.21948484, 0.6750973, 1)
+emission_energy_multiplier = 5.72
+
+[resource]
+material = SubResource("ORMMaterial3D_u8k5t")

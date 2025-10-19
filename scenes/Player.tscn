@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://c56v4i3c14181"]
+
+[ext_resource type="Script" uid="uid://dd43pa02e3tb1" path="res://scripts/Player/player.gd" id="1_rpqav"]
+[ext_resource type="BoxMesh" uid="uid://bqofc8jnc4eo3" path="res://assets/Player/playerLight.tres" id="2_kyqiw"]
+[ext_resource type="AudioStream" uid="uid://coiavxxrh7mwf" path="res://assets/Sounds/hit.wav" id="3_3li8b"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gntrk"]
+size = Vector3(1.905, 0.325, 0.44)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kyqiw"]
+size = Vector3(0.3584137, 1.8878059, 0.46481323)
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_rpqav")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.875, 0, 0, 0, 0.36, 0, 0, 0, 0.485, 0, 0.17732733, 0)
+mesh = ExtResource("2_kyqiw")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.18984663, 0.00444448)
+shape = SubResource("BoxShape3D_gntrk")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(-4.3711385e-08, -0.99999994, 0, 0.99999994, -4.3711385e-08, 0, 0, 0, 1, -9.716954e-05, 0.17127772, -0.0030832589)
+shape = SubResource("BoxShape3D_kyqiw")
+
+[node name="HitSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_3li8b")
+volume_db = -10.272
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
