@@ -16,6 +16,8 @@ extends Node3D
 @onready var turn_p2: TextureRect = $UI/TurnP2
 @onready var turn_p1: TextureRect = $UI/TurnP1
 
+@onready var sound_1: AudioStreamPlayer = $Sound1
+
 var ball_scene = preload("res://scenes/Ball.tscn")
 var rulette_scene = preload("res://scenes/Rulette.tscn")
 
@@ -24,8 +26,8 @@ var remain_seconds : int = 180
 var scorep1 = 0
 var scorep2 = 0
 
-var rulette = Node3D;
-var	ball = Node3D;
+var rulette: Control;
+var	ball: Node3D;
 var selected: bool
 
 func init_rulette() -> void:
@@ -33,10 +35,12 @@ func init_rulette() -> void:
 	rulette.position = Vector2(0, 15)
 	add_child(rulette)
 	rulette.connect("selected_change", Callable(self, "_on_rulette_selected_change"))
+	await get_tree().create_timer(8.0).timeout
+	rulette.queue_free()
 	
 func spawn_ball(trow_direction: Vector3) -> void:
 	ball = ball_scene.instantiate()
-	ball.speed = 5.0
+	ball.speed = 6.0
 	ball.initial_dir = trow_direction
 	ball.position = Vector3(0.0, 0.159, 1.456)
 	
@@ -55,17 +59,15 @@ func restart_ball(trow_direction: Vector3) -> void:
 	else:
 		turn_p1.visible = true
 		anim_font.play("blue_arrow")
-		selected = true
 		
 	spawn_ball(Vector3(0.0, 0.0, 0.0))
 	await get_tree().create_timer(3.0).timeout
 	ball.queue_free()
 	spawn_ball(trow_direction)
 	
-	if selected:
-		turn_p2.visible = false
-	else:
-		turn_p1.visible = false
+	turn_p2.visible = false
+	turn_p1.visible = false
+	
 	anim_font.stop()
 	anim_font.play("smoth")
 			
@@ -86,6 +88,8 @@ func _on_goal_p_1_body_entered(body: Node3D) -> void:
 	scorep2 += 1
 	label_score_p2.text = str(scorep2)
 	GLOBAL.velocity = 5;
+	player_1.position = Vector3(0, 0, 4.607)
+	player_2.position = Vector3(0, 0, -1.807)
 	restart_ball(Vector3(0.0, 0.0, 1.0))
 
 func _on_goal_p_2_body_entered(body: Node3D) -> void:
@@ -116,6 +120,7 @@ func _on_player_2_increment() -> void:
 	print(GLOBAL.velocity)
 
 func _on_timer_timeout() -> void:
+	
 	remain_seconds -= 1
 	var min = int(remain_seconds/60)
 	var sec = int(remain_seconds%60)
@@ -123,3 +128,5 @@ func _on_timer_timeout() -> void:
 	timer_label_p_1.text = str(time)
 	timer_label_p_2.text = str(time)
 	
+func play_turn_sound() -> void:
+	sound_1.play()

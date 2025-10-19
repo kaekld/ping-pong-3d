@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://duefq7txokcbj"]
+[gd_scene load_steps=21 format=3 uid="uid://duefq7txokcbj"]
 
 [ext_resource type="PackedScene" uid="uid://c56v4i3c14181" path="res://scenes/Player.tscn" id="1_e7g1p"]
 [ext_resource type="Script" uid="uid://cqdxp6n41r6vs" path="res://scripts/Game/maingame_mp.gd" id="1_ikcvm"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://kax85wfmdtwy" path="res://assets/UI/pink_arrow.png" id="6_iocve"]
 [ext_resource type="AudioStream" uid="uid://pl5ujib40xep" path="res://assets/Sounds/point.wav" id="6_mcxqp"]
 [ext_resource type="Texture2D" uid="uid://bf1pw2v7r6fmp" path="res://assets/UI/blue_arrow.png" id="7_cp4eh"]
+[ext_resource type="AudioStream" uid="uid://b42srx5f2ct63" path="res://assets/Sounds/rulette.wav" id="9_ch5ch"]
 
 [sub_resource type="Animation" id="Animation_iocve"]
 length = 0.001
@@ -135,6 +136,20 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector2(1029, 284), Vector2(1041, 243.99997), Vector2(1029, 284)]
 }
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("..")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"play_turn_sound"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_cp4eh"]
 resource_name = "pink_arrow"
@@ -162,6 +177,20 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(1119.0001, 352.99997), Vector2(1103, 361.00003), Vector2(1119.0001, 352.99997)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("..")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"play_turn_sound"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_mcxqp"]
@@ -391,7 +420,7 @@ anchor_bottom = 0.36564183
 offset_left = 5.199951
 offset_top = 156.3681
 offset_right = 85.576904
-offset_bottom = 130.18237
+offset_bottom = 130.18405
 rotation = 4.6173415
 texture = ExtResource("7_cp4eh")
 expand_mode = 1
@@ -499,6 +528,10 @@ shape = SubResource("BoxShape3D_mcxqp")
 [node name="Point" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_mcxqp")
 volume_db = -10.947
+
+[node name="Sound1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_ch5ch")
+volume_db = -12.316
 
 [node name="TimerNode" type="Node3D" parent="."]
 

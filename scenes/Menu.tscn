@@ -1,0 +1,148 @@
+[gd_scene load_steps=20 format=3 uid="uid://bi717430qxa7r"]
+
+[ext_resource type="Script" uid="uid://cvb3j7c2haf3i" path="res://scripts/Menu/menu.gd" id="1_11y2r"]
+[ext_resource type="VideoStream" uid="uid://x0jfxedego8y" path="res://assets/Videos/ping-pong.ogv" id="1_xdvgc"]
+[ext_resource type="FontFile" uid="uid://bucxe5avdop0j" path="res://assets/Fonts/grandover-personal-use.regular.ttf" id="2_upctu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_upctu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pp5m5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_el213"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_thu7x"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2af52"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_11y2r"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jmdev"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_b6cxs"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yt8fu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4umqm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o0tnf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_aaywf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1abgu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7ycwl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rtd1e"]
+
+[sub_resource type="Environment" id="Environment_o0tnf"]
+background_mode = 3
+glow_enabled = true
+glow_intensity = 1.0
+glow_strength = 0.9
+glow_blend_mode = 1
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_11y2r")
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.30902776
+anchor_top = 0.049382716
+anchor_right = 0.7092014
+anchor_bottom = 0.41358024
+offset_right = 362.21423
+offset_bottom = 185.42859
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.56, 0.56)
+stream = ExtResource("1_xdvgc")
+autoplay = true
+expand = true
+loop = true
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -21.0
+offset_top = 163.0
+offset_right = 22.0
+offset_bottom = 57.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 500
+theme_override_constants/margin_right = 500
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="PlaySP" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1.3500061, 1.3500061, 1.3500061, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_upctu")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxEmpty_upctu")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_pp5m5")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_el213")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_thu7x")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_2af52")
+text = "vs cpu"
+
+[node name="PlayMP" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1.2219125, 1.2219125, 1.2219125, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_upctu")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxEmpty_11y2r")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_jmdev")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_b6cxs")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_yt8fu")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_4umqm")
+text = "multiplayer"
+
+[node name="Exit" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1.3500061, 1.3500061, 1.3500061, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_upctu")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxEmpty_o0tnf")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_aaywf")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_1abgu")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_7ycwl")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_rtd1e")
+text = "exit"
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_o0tnf")
