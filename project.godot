@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="PingPong"
+run/main_scene="uid://duefq7txokcbj"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 

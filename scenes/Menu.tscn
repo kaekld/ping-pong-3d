@@ -1,8 +1,9 @@
-[gd_scene load_steps=20 format=3 uid="uid://bi717430qxa7r"]
+[gd_scene load_steps=25 format=3 uid="uid://bi717430qxa7r"]
 
 [ext_resource type="Script" uid="uid://cvb3j7c2haf3i" path="res://scripts/Menu/menu.gd" id="1_11y2r"]
 [ext_resource type="VideoStream" uid="uid://x0jfxedego8y" path="res://assets/Videos/ping-pong.ogv" id="1_xdvgc"]
 [ext_resource type="FontFile" uid="uid://bucxe5avdop0j" path="res://assets/Fonts/grandover-personal-use.regular.ttf" id="2_upctu"]
+[ext_resource type="FontFile" uid="uid://qpjsun3wu4l3" path="res://assets/Fonts/SAIBA-45.ttf" id="4_o0tnf"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_upctu"]
 
@@ -41,6 +42,58 @@ glow_intensity = 1.0
 glow_strength = 0.9
 glow_blend_mode = 1
 
+[sub_resource type="Animation" id="Animation_11y2r"]
+resource_name = "fade_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationPlayer/ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_o0tnf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationPlayer/ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_jmdev"]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationPlayer/ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.96666664),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_b6cxs"]
+_data = {
+&"RESET": SubResource("Animation_o0tnf"),
+&"fade_in": SubResource("Animation_11y2r"),
+&"fade_out": SubResource("Animation_jmdev")
+}
+
 [node name="Menu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -51,7 +104,7 @@ grow_vertical = 2
 script = ExtResource("1_11y2r")
 metadata/_edit_use_anchors_ = true
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="BlackScreen" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -146,3 +199,55 @@ text = "exit"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_o0tnf")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_b6cxs")
+}
+
+[node name="ColorRect" type="ColorRect" parent="AnimationPlayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="NameInput" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="NameInput"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.23958333
+anchor_top = 0.50617284
+anchor_right = 0.7552083
+anchor_bottom = 0.6867284
+theme_override_fonts/font = ExtResource("4_o0tnf")
+theme_override_font_sizes/font_size = 30
+text = "NOMBRE DEL JUGADOR 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Input" type="Label" parent="NameInput"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.23958333
+anchor_top = 0.66049385
+anchor_right = 0.7552083
+anchor_bottom = 0.8410494
+theme_override_fonts/font = ExtResource("4_o0tnf")
+theme_override_font_sizes/font_size = 30
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/PlayMP" to="." method="_on_play_mp_pressed"]

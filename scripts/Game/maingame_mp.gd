@@ -76,6 +76,10 @@ func restart_ball(trow_direction: Vector3) -> void:
 func _ready() -> void:
 	turn_p2.visible = false
 	turn_p1.visible = false
+	
+	anim_font.play("fade_in")
+	await anim_font.animation_finished
+	
 	anim_font.play("smoth")
 	player_1.connect("increment", Callable(self, "_on_player_1_increment"))
 	player_2.connect("increment", Callable(self, "_on_player_1_increment"))
@@ -88,8 +92,10 @@ func _on_goal_p_1_body_entered(body: Node3D) -> void:
 	scorep2 += 1
 	label_score_p2.text = str(scorep2)
 	GLOBAL.velocity = 5;
+	
 	player_1.position = Vector3(0, 0, 4.607)
 	player_2.position = Vector3(0, 0, -1.807)
+	
 	restart_ball(Vector3(0.0, 0.0, 1.0))
 
 func _on_goal_p_2_body_entered(body: Node3D) -> void:
@@ -99,6 +105,10 @@ func _on_goal_p_2_body_entered(body: Node3D) -> void:
 	scorep1 += 1
 	label_score_p1.text = str(scorep1)
 	GLOBAL.velocity = 5;
+	
+	player_1.position = Vector3(0, 0, 4.607)
+	player_2.position = Vector3(0, 0, -1.807)
+	
 	restart_ball(Vector3(0.0, 0.0, -1.0))
 
 func _on_rulette_selected_change(value: bool) -> void:

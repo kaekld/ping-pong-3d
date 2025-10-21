@@ -55,14 +55,14 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 		GLOBAL.velocity += 0.2
 		emit_signal("increment")
 		
-		var direccion = (body.global_position - global_position).normalized()
-		direccion.y = 0
+		var direction = (body.global_position - global_position).normalized()
+		direction.y = 0
 		
 		var local_hit = to_local(body.global_position)
-		var efecto = local_hit.x * 0.5 
-		direccion.x += efecto
-		direccion = direccion.normalized()
+		var effect = local_hit.x * 0.5 
+		direction.x += effect
+		direction = direction.normalized()
 
-		var fuerza = direccion * 5.0
+		var strengh = direction * 5.0
 		body.linear_velocity = Vector3.ZERO  
-		body.apply_central_impulse(fuerza)
+		body.apply_central_impulse(strengh)

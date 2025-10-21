@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://duefq7txokcbj"]
+[gd_scene load_steps=23 format=3 uid="uid://duefq7txokcbj"]
 
 [ext_resource type="PackedScene" uid="uid://c56v4i3c14181" path="res://scenes/Player.tscn" id="1_e7g1p"]
 [ext_resource type="Script" uid="uid://cqdxp6n41r6vs" path="res://scripts/Game/maingame_mp.gd" id="1_ikcvm"]
@@ -107,6 +107,18 @@ tracks/7/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(1040, 265)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("BlackScreen:modulate")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_ch5ch"]
@@ -246,10 +258,42 @@ tracks/3/keys = {
 "values": [Vector2(1.0000019, 20), Vector2(32, 36), Vector2(1.0000019, 20)]
 }
 
+[sub_resource type="Animation" id="Animation_l8a21"]
+resource_name = "fade_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BlackScreen:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_v2ie4"]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BlackScreen:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cp4eh"]
 _data = {
 &"RESET": SubResource("Animation_iocve"),
 &"blue_arrow": SubResource("Animation_ch5ch"),
+&"fade_in": SubResource("Animation_l8a21"),
+&"fade_out": SubResource("Animation_v2ie4"),
 &"pink_arrow": SubResource("Animation_cp4eh"),
 &"smoth": SubResource("Animation_mcxqp")
 }
@@ -388,11 +432,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="AnimationUI" type="AnimationPlayer" parent="UI"]
-libraries = {
-&"": SubResource("AnimationLibrary_cp4eh")
-}
-
 [node name="TurnP2" type="TextureRect" parent="UI"]
 layout_mode = 1
 anchors_preset = -1
@@ -424,6 +463,22 @@ offset_bottom = 130.18405
 rotation = 4.6173415
 texture = ExtResource("7_cp4eh")
 expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="AnimationUI" type="AnimationPlayer" parent="UI"]
+libraries = {
+&"": SubResource("AnimationLibrary_cp4eh")
+}
+
+[node name="BlackScreen" type="ColorRect" parent="UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
 metadata/_edit_use_anchors_ = true
 
 [node name="MapObjects" type="Node3D" parent="."]
