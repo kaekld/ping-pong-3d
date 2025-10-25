@@ -21,7 +21,7 @@ func _physics_process(delta):
 	if move_left:
 		move_dir.x -= 1
 
-	if not is_dashing:
+	if not is_dashing and !GLOBAL.sp_play:
 		if Input.is_action_just_pressed("DashP2") and move_right:
 			is_dashing = true
 			dash_time = dash_duration
@@ -31,7 +31,7 @@ func _physics_process(delta):
 			dash_time = dash_duration
 			dash_direction = -1
 
-	if is_dashing:
+	if is_dashing and !GLOBAL.sp_play:
 		move_dir.x = dash_direction
 		move_dir = move_dir.normalized() * dash_speed
 		dash_time -= delta

@@ -18,6 +18,13 @@ extends Node3D
 
 @onready var sound_1: AudioStreamPlayer = $Sound1
 
+@onready var label_p_1: Label = $UI/LabelP1
+@onready var label_p_2: Label = $UI/LabelP2
+
+@onready var sub_viewport_container_2: SubViewportContainer = $PlayersViewPorts/HBoxContainer/SubViewportContainer2
+@onready var camera_p_1: Camera3D = $PlayersViewPorts/HBoxContainer/SubViewportContainer/SubViewport/CameraP1
+@onready var score_p_2: Label = $UI/ScoreP2
+
 var ball_scene = preload("res://scenes/Ball.tscn")
 var rulette_scene = preload("res://scenes/Rulette.tscn")
 
@@ -77,14 +84,29 @@ func _ready() -> void:
 	turn_p2.visible = false
 	turn_p1.visible = false
 	
+	if GLOBAL.sp_play:
+		sub_viewport_container_2.visible = false
+		camera_p_1.fov = 77.5
+		label_p_2.position = Vector2(3.0,13.0)
+		score_p_2.position = Vector2(1016.0,528.0)
+	
 	anim_font.play("fade_in")
 	await anim_font.animation_finished
 	
-	anim_font.play("smoth")
+	if GLOBAL.sp_play:
+		anim_font.play("smoth_sp")
+	else:
+		anim_font.play("smoth")
+		
+	
 	player_1.connect("increment", Callable(self, "_on_player_1_increment"))
-	player_2.connect("increment", Callable(self, "_on_player_1_increment"))
+	player_2.connect("increment", Callable(self, "_on_player_2_increment"))
 	spawn_ball(Vector3(0.0, 0.0, 0.0))
 	init_rulette()
+	
+func _physics_process(delta: float) -> void:
+	if GLOBAL.sp_play and ball and is_instance_valid(ball):
+		track_ball()
 
 func _on_goal_p_1_body_entered(body: Node3D) -> void:
 	point.play()
@@ -96,7 +118,18 @@ func _on_goal_p_1_body_entered(body: Node3D) -> void:
 	player_1.position = Vector3(0, 0, 4.607)
 	player_2.position = Vector3(0, 0, -1.807)
 	
-	restart_ball(Vector3(0.0, 0.0, 1.0))
+	if scorep2 >= 5:
+		label_p_2.text = GLOBAL.name_p2 + " Wins"
+		label_p_2.visible = true
+		
+		await get_tree().create_timer(5.0).timeout
+		anim_font.play("fade_out")
+		await anim_font.animation_finished
+		GLOBAL.scene_to_load = "res://scenes/Menu.tscn"
+		get_tree().change_scene_to_file("res://scenes/LoadingScreen.tscn")
+	else:
+		restart_ball(Vector3(0.0, 0.0, -1.0))
+		
 
 func _on_goal_p_2_body_entered(body: Node3D) -> void:
 	point.play()
@@ -109,7 +142,17 @@ func _on_goal_p_2_body_entered(body: Node3D) -> void:
 	player_1.position = Vector3(0, 0, 4.607)
 	player_2.position = Vector3(0, 0, -1.807)
 	
-	restart_ball(Vector3(0.0, 0.0, -1.0))
+	if scorep1 >= 5:
+		label_p_1.text = GLOBAL.name_p1 + " Wins"
+		label_p_1.visible = true
+		
+		await get_tree().create_timer(5.0).timeout
+		anim_font.play("fade_out")
+		await anim_font.animation_finished
+		GLOBAL.scene_to_load = "res://scenes/Menu.tscn"
+		get_tree().change_scene_to_file("res://scenes/LoadingScreen.tscn")
+	else:
+		restart_ball(Vector3(0.0, 0.0, -1.0))
 
 func _on_rulette_selected_change(value: bool) -> void:
 	await get_tree().create_timer(2.0).timeout
@@ -123,14 +166,11 @@ func _on_rulette_selected_change(value: bool) -> void:
 		
 func _on_player_1_increment() -> void:
 	ball.speed = GLOBAL.velocity
-	print(GLOBAL.velocity)
 
 func _on_player_2_increment() -> void:
 	ball.speed = GLOBAL.velocity
-	print(GLOBAL.velocity)
 
 func _on_timer_timeout() -> void:
-	
 	remain_seconds -= 1
 	var min = int(remain_seconds/60)
 	var sec = int(remain_seconds%60)
@@ -140,3 +180,10 @@ func _on_timer_timeout() -> void:
 	
 func play_turn_sound() -> void:
 	sound_1.play()
+
+func track_ball() -> void:
+	var player_pos = player_2.position
+	var ball_pos = ball.position
+	player_pos.x = lerp(player_pos.x, ball_pos.x, 0.2)
+	player_pos.x = clamp(player_pos.x, -4.5, 4.5)
+	player_2.position = player_pos
