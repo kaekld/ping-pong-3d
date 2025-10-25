@@ -458,7 +458,7 @@ anchor_bottom = 0.19276784
 offset_left = -30.999998
 offset_top = -16.0
 offset_right = -31.0
-offset_bottom = -3.9111786
+offset_bottom = -3.911148
 theme_override_colors/font_color = Color(0.33333334, 1, 1, 1)
 theme_override_fonts/font = ExtResource("5_mcxqp")
 theme_override_font_sizes/font_size = 60
@@ -476,7 +476,7 @@ anchor_right = 1.0530419
 anchor_bottom = 1.0060395
 offset_left = -1057.0
 offset_top = -216.0
-offset_right = -1056.9756
+offset_right = -1056.9751
 offset_bottom = -203.91357
 theme_override_colors/font_color = Color(1, 0.5274082, 0.6743928, 1)
 theme_override_fonts/font = ExtResource("5_mcxqp")
@@ -525,7 +525,6 @@ libraries = {
 }
 
 [node name="BlackScreen" type="ColorRect" parent="UI"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
